@@ -17,13 +17,28 @@ An Android library for accessing, analyzing, and exporting SMS messages.
 
 ### Gradle
 
-Add the Maven repository to your project's `settings.gradle` or root `build.gradle` file:
+Add the JitPack repository to your project by including it in your `settings.gradle`:
 
 ```groovy
-repositories {
-    mavenCentral()
-    // or if using JitPack
-    maven { url 'https://jitpack.io' }
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        google()
+        mavenCentral()
+        maven { url 'https://jitpack.io' }
+    }
+}
+```
+
+Or for older projects in your root `build.gradle`:
+
+```groovy
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+        maven { url 'https://jitpack.io' }
+    }
 }
 ```
 
@@ -31,9 +46,7 @@ Add the dependency to your app's `build.gradle` file:
 
 ```groovy
 dependencies {
-    implementation 'com.yourcompany.smslogger:sms-logger:1.0.0'
-    // or if using JitPack
-    implementation 'com.github.yourcompany:sms-logger:1.0.0'
+    implementation 'com.github.UmbaMobile:sms-logger:v1.0.1'
 }
 ```
 
@@ -68,7 +81,12 @@ if (SmsLogger.hasPermission(context)) {
     // Access SMS data
 } else {
     // Request permissions
-    requestPermissions(...)
+    requestPermissionLauncher.launch(
+        arrayOf(
+            Manifest.permission.READ_SMS,
+            Manifest.permission.RECEIVE_SMS
+        )
+    )
 }
 ```
 
@@ -184,7 +202,7 @@ Helper methods:
 
 ## Google Play Restrictions
 
-Note that Google Play has restrictions on apps that request SMS permissions. Your app may need to be submitted for a review to explain why it needs SMS access. 
+Note that Google Play has restrictions on apps that request SMS permissions. Your app may need to be submitted for a review to explain why it needs SMS access.
 
 ## License
 
