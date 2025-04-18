@@ -73,7 +73,7 @@ afterEvaluate {
                         developer {
                             id = 'UmbaMobile'
                             name = 'Umba Mobile'
-                            email = 'your.email@example.com'  // Change to your email
+                            email = 'orin@umba.com'
                         }
                     }
 

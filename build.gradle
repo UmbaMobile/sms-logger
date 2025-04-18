@@ -8,14 +8,3 @@ buildscript {
         classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.8.10'
     }
 }
-
-allprojects {
-    repositories {
-        google()
-        mavenCentral()
-    }
-}
-
-task clean(type: Delete) {
-    delete rootProject.buildDir
-}
