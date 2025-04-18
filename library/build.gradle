@@ -1,0 +1,89 @@
+plugins {
+    id 'com.android.library'
+    id 'org.jetbrains.kotlin.android'
+    id 'maven-publish'
+}
+
+android {
+    namespace 'com.umbamobile.smslogger'
+    compileSdk 34
+
+    defaultConfig {
+        minSdk 21
+        targetSdk 34
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+
+    publishing {
+        singleVariant("release") {
+            withSourcesJar()
+            withJavadocJar()
+        }
+    }
+}
+
+dependencies {
+    implementation 'androidx.core:core-ktx:1.10.0'
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.1'
+}
+
+// For publishing to Maven Central or JitPack
+afterEvaluate {
+    publishing {
+        publications {
+            release(MavenPublication) {
+                from components.release
+
+                groupId = 'com.github.UmbaMobile'
+                artifactId = 'sms-logger'
+                version = '1.0.0'
+
+                pom {
+                    name = 'SMS Logger'
+                    description = 'Android library for SMS logging and analysis'
+                    url = 'https://github.com/UmbaMobile/sms-logger'
+
+                    licenses {
+                        license {
+                            name = 'The Apache License, Version 2.0'
+                            url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                        }
+                    }
+
+                    developers {
+                        developer {
+                            id = 'UmbaMobile'
+                            name = 'Umba Mobile'
+                            email = 'your.email@example.com'  // Change to your email
+                        }
+                    }
+
+                    scm {
+                        connection = 'scm:git:git://github.com/UmbaMobile/sms-logger.git'
+                        developerConnection = 'scm:git:ssh://github.com:UmbaMobile/sms-logger.git'
+                        url = 'https://github.com/UmbaMobile/sms-logger'
+                    }
+                }
+            }
+        }
+    }
+}
